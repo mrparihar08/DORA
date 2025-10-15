@@ -1,5 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base, Session
+from passlib.context import CryptContext
+from datetime import datetime, timedelta
+from typing import Optional
+from pydantic import BaseModel, EmailStr
+import jwt, os
+from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from typing import List
 import os
@@ -23,19 +31,33 @@ app = FastAPI(
     description="Predict diseases from symptoms using ML",
     version="1.0.0"
 )
+# ============================================================
+# CONFIG & DATABASE SETUP
+# ============================================================
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-dev-secret")
 
-# -------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'zaki.db')}"
+
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+Base = declarative_base()
+
+pwd_context = CryptContext(schemes=["pbkdf2_sha256", "scrypt"], deprecated="auto")
+
+
+
 # CORS
-# -------------------------------------------------
-FRONTEND_ORIGINS = os.getenv("FRONTEND_ORIGINS", "http://localhost:3000").split(",")
-
+origins = os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=FRONTEND_ORIGINS,
+    allow_origins=["*"],       # Allow all origins for dev (or replace with your frontend URL)
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],       # Allow all methods (POST, GET, OPTIONS, etc.)
+    allow_headers=["*"],       # Allow all headers
 )
+
 
 # -------------------------------------------------
 # Load Models
@@ -63,7 +85,7 @@ except Exception as e:
 # Pydantic Schemas
 # -------------------------------------------------
 class Symptoms(BaseModel):
-    symptoms: List[str] = Field(..., example=["fever", "cough"])
+    symptoms: List[str] = Field()
 
 # -------------------------------------------------
 # Routes
@@ -95,3 +117,7 @@ def predict(data: Symptoms):
     except Exception as e:
         logger.exception("Prediction failed")
         raise HTTPException(status_code=500, detail=str(e))
+    
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=int(os.getenv("PORT", 10000)), reload=True)

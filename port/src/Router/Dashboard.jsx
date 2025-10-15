@@ -1,90 +1,68 @@
-import { useNavigate, Link } from "react-router-dom";
+// src/Router/Dashboard.jsx
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  // Sidebar navigation items
   const navItems = [
     { title: "Home 🏠", path: "/dashboard" },
-    { title: "Symptom Checker 📋", path: "/SymptomChecker" },
-    { title: "Health Tips 💡", path: "/Health_Tips" },
-    { title: "Reports 📊", path: "/reports" }
+    { title: "Symptom Checker 📋", path: "/symptom-checker" },
+    { title: "Health Tips 💡", path: "/health-tips" },
+    { title: "Reports 📊", path: "/reports" },
   ];
 
   return (
     <div className="dashboard-container">
-      {/* -------- Sidebar -------- */}
-      <aside className="sidebar">
+      <div className="sidebar">
         <h2 className="sidebar-title">HEALTH SYMPTOM CHECKER</h2>
-        <nav className="sidebar-menu">
-          {navItems.map((item) => (
+        <div className="sidebar-menu">
+          {navItems.map((item, idx) => (
             <div
-              key={item.title}
+              key={`nav-${idx}`}
               onClick={() => navigate(item.path)}
               className="menu-item"
             >
               {item.title}
             </div>
           ))}
-        </nav>
-      </aside>
+        </div>
+      </div>
 
-      {/* -------- Main Content -------- */}
       <main className="main-content">
         <header className="welcome-header">
           <h1>Welcome to Health Symptom Checker</h1>
           <p>
             Easily track and check your health symptoms with our intelligent
-            system. <br /> Get insights, tips, and personalized recommendations.
+            system. <br />
+            Get insights, tips, and personalized recommendations.
           </p>
         </header>
 
         <section className="cards-container">
-          {/* Symptom Checker Card */}
           <div className="card">
             <h3>🩺 Symptom Checker</h3>
-            <p>
-              Browse or enter your symptoms to get AI-based insights about
-              possible health conditions.
-            </p>
-            <Link to="/SymptomChecker">
-              <button className="card-btn">Start Checking</button>
-            </Link>
+            <p>Browse or enter your symptoms to get AI-based insights.</p>
+            <Link to="/symptom-checker" className="card-btn">Start Checking</Link>
           </div>
 
-          {/* Health Tips Card */}
           <div className="card">
             <h3>💡 Health Tips</h3>
-            <p>
-              Discover tips to stay fit, reduce stress, and improve your
-              lifestyle.
-            </p>
-            <Link to="/Health_Tips">
-              <button className="card-btn">Explore Tips</button>
-            </Link>
+            <p>Discover tips to stay fit, reduce stress, and improve your lifestyle.</p>
+            <Link to="/health-tips" className="card-btn">Explore Tips</Link>
           </div>
 
-          {/* Reports Card */}
           <div className="card">
             <h3>📊 Recent Reports</h3>
-            <p>
-              Review your past checks and track your health progress over time.
-            </p>
-            <Link to="/reports">
-              <button className="card-btn">View Reports</button>
-            </Link>
+            <p>Review your past checks and track progress over time.</p>
+            <Link to="/reports" className="card-btn">View Reports</Link>
           </div>
         </section>
       </main>
 
-      {/* -------- Right Sidebar -------- */}
       <aside className="right-sidebar">
         <div className="health-tip">
           <h3>Today’s Health Tip</h3>
-          <p>
-            💧 Stay hydrated! Drink at least 8 glasses of water daily to boost
-            your energy and focus.
-          </p>
+          <p>💧 Stay hydrated! Drink at least 8 glasses of water daily.</p>
           <a href="/">Learn More</a>
         </div>
       </aside>

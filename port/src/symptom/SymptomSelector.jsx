@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SymptomSelector({ title, symptoms, subtitles }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const navigate = useNavigate();
 
+  // ✅ Load previous selections (optional)
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("symptoms")) || [];
+    setSelectedSymptoms(saved);
+  }, []);
+
+  // ✅ Toggle selection
   const toggleSymptom = (symptom) => {
     setSelectedSymptoms((prev) =>
       prev.includes(symptom)
@@ -13,6 +20,7 @@ function SymptomSelector({ title, symptoms, subtitles }) {
     );
   };
 
+  // ✅ Save and move to next
   const handleNext = () => {
     localStorage.setItem("symptoms", JSON.stringify(selectedSymptoms));
     navigate("/step3");
@@ -22,14 +30,17 @@ function SymptomSelector({ title, symptoms, subtitles }) {
     <div className="browse">
       <div className="browse-header">
         <h2>{title}</h2>
-        <button className="close-btn">✕</button>
+        <button className="close-btn" onClick={() => navigate(-1)}>✕</button>
       </div>
 
       <div className="symptom-list">
-        {/* case 1: flat symptoms array */}
+        {/* Flat symptom list */}
         {symptoms &&
           symptoms.map((sym) => (
-            <label key={sym} className="list-item">
+            <label
+              key={sym}
+              className={`list-item ${selectedSymptoms.includes(sym) ? "selected" : ""}`}
+            >
               <input
                 type="checkbox"
                 checked={selectedSymptoms.includes(sym)}
@@ -39,13 +50,16 @@ function SymptomSelector({ title, symptoms, subtitles }) {
             </label>
           ))}
 
-        {/* case 2: nested subtitles */}
+        {/* Nested subtitles */}
         {subtitles &&
           subtitles.map((group) => (
             <div key={group.title} className="subtitle-group">
               <h3>{group.title}</h3>
               {group.symptoms.map((sym) => (
-                <label key={sym} className="list-item">
+                <label
+                  key={sym}
+                  className={`list-item ${selectedSymptoms.includes(sym) ? "selected" : ""}`}
+                >
                   <input
                     type="checkbox"
                     checked={selectedSymptoms.includes(sym)}

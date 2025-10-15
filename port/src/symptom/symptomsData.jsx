@@ -3,15 +3,20 @@ export const symptomGroups = {
   head: {
     title: "Head Symptoms",
     subtitles :[
-      ["headache",
-    "blurred and distorted vision",
-    "pain behind the eyes",
-    "loss of smell",
-    "visual disturbances",
-    "patches in throat",
-    "sinus pressure",
-    "redness of eyes",
-    "watering from eyes"],
+      {
+        title: "General Head",
+        symptoms: [
+          "headache",
+          "blurred and distorted vision",
+          "pain behind the eyes",
+          "loss of smell",
+          "visual disturbances",
+          "patches in throat",
+          "sinus pressure",
+          "redness of eyes",
+          "watering from eyes"
+        ]
+      },
       { title: "Scalp", symptoms:["baby's soft spot is bulging", "baby's soft spot is sunken", "bald spots (hair)", "complete loss of hair over entire body", "completely bald", "dandruff", "deformed forehead", "dry scalp", "early grey hair", "forehead sticks out", "hair dryness", "hair sparse", "head lice", "headache", "itchy scalp", "losing hair", "lump on scalp", "male pattern baldness", "pulling out hair", "pus-filled bump(s) in bald spot", "rash limited to scalp", "redness and dry scaly skin with hair loss", "scalp tender to touch", "widespread loss of hair"] },
       { title: "Forehead", symptoms:["fatigue", "fever", "forehead is tender", "forehead sticks out", "headache", "headache in front of head", "high forehead", "lightheadedness"] },
       { title: "Eyes", symptoms:["black eye", "blind spot", "blurry vision", "blurry vision in one eye", "bruising around eyes", "can't look up", "central vision loss", "decreased vision", "distorted vision", "double vision", "dry eyes", "eye discharge", "eye hurts", "eye pain", "eye socket hurts", "eye strain", "eye twitching", "eyelid hurts", "eyes are irritated", "flashing lights in vision", "flickering uncolored zig-zag lines in vision", "inner corner of eye is swollen", "irritated eye", "itchy eye", "itchy eyelid", "lateral vision loss", "lazy eye", "light hurts eyes", "loss of vision in one eye", "no peripheral vision", "nystagmus", "one eye sees better than the other", "one eyelid swollen", "pain around the eye", "painful and weak eye movement", "peripheral vision loss", "pink eye", "poor night vision", "pus coming from the eye", "rash limited to eyelid", "red eye", "seeing halos of light around things", "severe eye pain", "single red eye", "skin and eyes more sensitive to sunlight", "small dot of light or zigzag shape in your vision", "sore eye", "stye", "swollen eyelid", "tearing in one eye", "temporary vision loss", "vision loss", "visual aura", "watery eyes", "wrinkle between eyebrows", "yellow eyes"] },
@@ -25,17 +30,20 @@ export const symptomGroups = {
   chest: {
     title: "Chest Symptoms",
     subtitles :[
-      [
-    "chest pain",
-    "breathlessness",
-    "congestion",
-    "cough",
-    "mucoid sputum",
-    "rusty sputum",
-    "blood in sputum",
-    "palpitations",
-    "fast heart rate"
-  ],
+     {
+        title: "General Chest",
+        symptoms: [
+          "chest pain",
+          "breathlessness",
+          "congestion",
+          "cough",
+          "mucoid sputum",
+          "rusty sputum",
+          "blood in sputum",
+          "palpitations",
+          "fast heart rate"
+        ]
+      },
     { title: "Upper Chest", symptoms:["fatty area above collar bone", "left supraclavicular lymph node enlargement", "supraclavicular fossa bruit", "supraclavicular lymph node enlargement", "supraclavicular pulsation"]},
     { title: "Sternum", symptoms:["aortic dilation, ascending", "aortic dissection", "aortic infection", "behind the breastbone hurts", "breast bone hurts", "breastbone is abnormal", "breastbone tender to touch", "breath sound decrease, basilar, unilateral", "cardiomegaly", "chest bones cave in", "chest bones stick out", "chest pain that spreads to arm, shoulder, neck or jaw", "congestive heart failure", "ejection fraction reduced", "feeling of pressure in food pipe", "food gets stuck", "gibson's murmur", "hard for food to go down", "heart beats faster when exercising", "heart displacement", "heart displacement, left", "heart displacement, right", "heart murmur", "heart murmur increased with inspiration", "heart murmur, changing", "heart murmur, diastolic", "heart murmur, diastolic, pulmonic", "heart murmur, holosystolic", "heart murmur, machinery", "heart murmur, presystolic", "heart murmur, systolic", "heart murmur, systolic, apical", "heart murmur, systolic, crescendo-decrescendo", "heart murmur, systolic, pulmonic", "heart size decrease", "heart sound absence, second", "heart sound decrease, first", "heart sound decrease, second", "heart sound increase", "heart sound increase, first", "heart sound increase, second", "heart sound increase, second, pulmonic", "heart sound irregularity", "heart sound split, first", "heart sound split, second", "heart sound variation, first", "heart sound, fourth", "heart sound, third", "heart sounds muffled", "heart thrill", "heart thrill, apical", "heart thrill, diastolic", "heart thrill, pulmonic", "heartburn", "hiccups", "inflammation of esophagus", "mitral valve prolapse", "nipple hurts", "palpitations", "pericardial friction rub", "pressure on heart due to fluid buildup", "pulmonary ejection click", "pulmonic sound absence", "pulmonic sound decrease", "severe chest pain/pressure", "sternal lift", "sternal pulsation visible", "sternoclavicular joint pulsation", "systolic heart murmur, increased with valsalva", "systolic thrill", "tightening of esophagus"] },
     { title: "Breast",symptoms:["abnormal growth of male breasts", "bloody nipple discharge", "breast cancer", "breast feels harder", "breast feels heavy", "breast getting bigger", "breast getting smaller", "breast hurts", "breast mass roundness", "breast mass smoothness", "breast mass, unilateral", "breast redness", "breast skin feels like an orange peel", "breastfeeding mom", "breasts not developing", "darkened skin on nipple", "enlarged vein on breast", "fluid leaking from nipple", "growth on nipple", "hard lump in breast", "infected lump or sore on breast", "loss of skin color on nipple", "lump in breast", "lump in breast that can be moved", "lump in breast that doesn't move", "nipple doesn't move", "nipple pulling to one side", "nipple redness", "nipple stays hard all the time", "nipple tender to touch", "painful tube like lump in breast", "part of breast skin appears pulled inward", "rash limited to under the breast", "red, irritated nipple", "squishy lump in breast", "swollen breast", "swollen nipples", "wide set nipples"] }
@@ -44,14 +52,17 @@ export const symptomGroups = {
   arms: {
     title: "Arm Symptoms",
     subtitles:[
-      [
-    "joint pain",
-    "muscle pain",
-    "muscle weakness",
-    "muscle wasting",
-    "bruising",
-    "blister"
-  ],
+     {
+        title: "General Arm",
+        symptoms: [
+          "joint pain",
+          "muscle pain",
+          "muscle weakness",
+          "muscle wasting",
+          "bruising",
+          "blister"
+        ]
+      },
      { title: "Shoulder", symptoms:["large shoulder vein", "lump in shoulder", "shoulder girdle fascia thickening", "shoulder girdle muscle weakness", "shoulder granule", "shoulder muscle pain", "shoulder muscle twitching", "shoulder shrug sign", "shoulder tender to touch", "subacromial bursal tenderness", "subdeltoid bursal tenderness", "swollen shoulder"] },
      { title: "Armpit", symptoms:["axillary lymph node enlargement", "axillary lymph node tenderness", "darkening skin on armpit", "firm lump in arm pit", "freckles in armpit", "losing armpit hair", "lump in armpit that doesn't move", "painful nodules in armpits", "rash limited to armpit", "very little armpit hair"]},
      { title: "Upper Arm",symptoms:["bicep shaking", "biceps and triceps hyperreflexia", "biceps hyporeflexia", "humeral swelling, lower", "triceps hyporeflexia", "upper arm pain"]},
@@ -65,7 +76,9 @@ export const symptomGroups = {
   abdomen: {
     title: "Abdomen Symptoms",
     subtitles: [
-       [
+     {
+        title: "General Abdomen",
+        symptoms: [
     "abdominal pain",
     "belly pain",
     "distention of abdomen",
@@ -85,7 +98,8 @@ export const symptomGroups = {
     "bloody stool",
     "mucus on poop",
     "tarry stool"
-  ],
+  ]
+      },
        { title: "Upper Abdomen",  symptoms:["abdominal mass, movable, upper", "abdominal mass, right upper quadrant", "abdominal mass, upper", "abdominal tenderness, left upper quadrant", "burping", "can't digest fatty foods", "courvoisier sign", "diarrhea after meals", "fatty liver", "gall bladder distention", "gallbladder inflammation", "gallstones", "hepatic friction rub", "hepatosplenomegaly", "inflammation of stomach and intestines", "liver border irregularity", "liver bruit", "liver disease", "liver displacement", "liver enlargement", "liver hard", "liver mass", "liver pulsation", "liver tenderness", "murphy sign positive", "nausea", "open sore in stomach or esophagus", "pain in diaphragm", "pancreas inflammation", "past gallbladder removal", "reflux", "scarring of the liver", "spleen enlargement", "spleen friction rub", "spleen palpable", "spleen tenderness", "stomach pain upper left side", "stomach pain upper right side", "ulcer in muscle connecting stomach to duodenum", "upper abdominal wound", "upper belly bloating", "upper stomach pain"] },
        { title: "Epigastric (upper central abdomen)",  symptoms:["burping", "epigastric abdominal tenderness", "heartburn", "hernia in belly button", "indigestion", "nausea", "pain around belly button", "pain in middle of belly", "pain near belly button spreading to lower right side of stomach", "reflux", "stomach inflammation", "stomach pushes through diaphragm", "urine leaking from belly button", "vomiting blood"] },
        { title: "Lower Abdomen", symptoms:["abdominal mass, left lower quadrant", "abdominal mass, lower", "abdominal mass, right lower quadrant", "abdominal tenderness, left lower quadrant", "abdominal tenderness, lower", "bladder distention", "bladder feels full", "c-section", "change in bowel habits", "diarrhea", "feels like need to pee all the time", "frequent bowel movements", "gassy", "hurts when ovulating", "indirect tenderness right lower quadrant", "inflammation of colon", "inflammation of stomach and intestines", "lower belly bloating", "lower stomach pain", "ovarian mass", "ovarian mass, irregular", "ovarian swelling", "ovary palpable", "past appendix removal", "stomach pain lower left side", "stomach pain lower right side"] }
@@ -94,7 +108,9 @@ export const symptomGroups = {
   pelvic: {
     title: "Pelvic Symptoms",
     subtitles: [
-      [
+     {
+        title: "General Pelvic",
+        symptoms: [
     "hip joint pain",
     "pain during bowel movements",
     "pain in anal region",
@@ -105,7 +121,8 @@ export const symptomGroups = {
     "continuous feel of urine",
     "foul smell of urine",
     "bladder discomfort"
-  ],
+      ]
+      },
 
       { title: "Hip", symptoms:["acetabular dysplasia", "bend at hip", "coxa valga", "coxa vara", "difficulty getting up from a chair", "greater tuberosity tenderness", "hip deformity", "hip feels like it pops out of socket", "hip feels stiff", "hip hurts", "hip is swollen", "hip muscle is weak", "hip tenderness", "hurts to walk", "ischial tuberosity tenderness", "pelvic muscles are tight", "pelvic muscles feel weak", "pelvic smallness", "pelvis tilted", "pelvis wide"] },
       { title: "Groin", symptoms:["darkened skin on groin", "duroziez sign", "feeling of heaviness in groin", "femoral bruit", "femoral lymph node enlargement", "femoral pulse absence", "femoral pulse decrease", "groin pain", "groin tenderness", "hernia, femoral", "inguinal hernia", "inguinal lymph node abscess", "inguinal lymph node enlargement", "inguinal lymph node firmness", "inguinal lymph node matting", "inguinal lymph node tenderness", "lump comes and goes on groin", "lump in groin", "painful gland in groin", "pea-sized lump(s) on groin", "rash limited to groin", "redness of groin"] },
@@ -116,13 +133,15 @@ export const symptomGroups = {
   back: {
     title: "Back Symptoms",
     subtitles: [
-      [
+          {
+        title: "General Back",
+        symptoms: [
     "back pain",
     "low back pain",
     "movement stiffness",
     "loss of balance",
     "unsteadiness"
-  ],
+  ]  },
        { title: "Upper Back", symptoms:["back pain", "scapula, winged", "upper back pain"]},
        { title: "Flank", symptoms:["flank bruit", "flank tenderness", "kidney abscess", "kidney disease", "kidney mass tenderness", "kidney palpable", "kidney problem", "kidney stone", "kidney, polycystic", "one side of low back hurts", "one side of low back is red", "red or purple flat spots on side of body"] },
        { title: "Lower Back", symptoms:["back pain", "can't bend backwards", "extreme curve in low back", "low back pain", "low back tenderness", "lower back muscle spasm", "severe back pain", "solitary patch, rough, raised, lumbosacral", "spine curvature in side-to-side direction"] },
@@ -132,7 +151,9 @@ export const symptomGroups = {
   buttock: {
     title: "Buttock Symptoms",
     subtitles: [ 
-      [
+           {
+        title: "General Buttock",
+        symptoms: [
     "butt hurts",
     "rectal tenderness",
     "rectal ulceration",
@@ -141,7 +162,8 @@ export const symptomGroups = {
     "anal inflammation",
     "anal bleeding",
     "painful walking"
-  ],
+       ]
+      },
       { title: "Hip", symptoms:["acetabular dysplasia", "bend at hip", "coxa valga", "coxa vara", "difficulty getting up from a chair", "greater tuberosity tenderness", "hip deformity", "hip feels like it pops out of socket", "hip feels stiff", "hip hurts", "hip is swollen", "hip muscle is weak", "hip tenderness", "hurts to walk", "ischial tuberosity tenderness", "pelvic muscles are tight", "pelvic muscles feel weak", "pelvic smallness", "pelvis tilted", "pelvis wide"] },
       { title: "Rectum", symptoms:["anal bleeding", "anal bulla, hemorrhagic", "anal canal induration", "anal fistula", "anal inflammation", "anal mass tenderness", "anal nodule", "anal sphincter spasm", "anal ulceration", "anus, imperforate", "blood in poop", "bright red blood in poop", "bulky poop", "butt hurts", "can't poop completely", "clay colored poop", "clotted swollen veins near anus", "constipation", "feels like need to poop all the time", "gassy", "green colored poop", "hard stool", "hemorrhoid", "infrequent bowel movements", "itchy anus", "large stool", "melanosis coli", "mucus on poop", "oily greasy looking poop", "pain during pooping", "poop is thin", "poop leaking", "poop smells bad", "rash limited to anus", "rectal fissure", "rectal fistula", "rectal mass", "rectal mucous membrane discoloration, orange", "rectal tenderness", "rectal ulceration", "rectal urine", "rectoperineal fistula", "rectum protrudes out anus", "relaxed anal sphincter", "stool backed up or blocked", "swollen vein protrudes from anus", "tarry stool", "tissue death of anus", "wart on butt", "yellow colored poop"] }
      ],
@@ -149,7 +171,9 @@ export const symptomGroups = {
   leg: {
     title: "Leg Symptoms",
     subtitles: [
-      [
+           {
+        title: "General Leg",
+        symptoms: [
     "knee pain",
     "joint pain",
     "swelling joints",
@@ -164,7 +188,8 @@ export const symptomGroups = {
     "ankle pain",
     "foot hurts",
     "toe pain"
-  ],
+  ]
+        },
         { title: "Thigh", symptoms:["burning feeling on thigh", "can't feel hot or cold on thigh", "cramp in thigh muscle", "dahl's sign positive", "fat thigh", "itching thigh", "large thigh muscle", "movement of upper leg outward", "numb thigh muscle", "pain in thigh", "popping sound when turn thigh outward", "red thigh", "thigh muscle feels firm", "thigh muscle mass", "thigh twitching", "weak thigh muscle"] },
         { title: "Hamstring", symptoms:[" back of upper leg is weak"] },
         { title: "Knee", symptoms:["back of knee hurts", "can feel small lump in knee", "clutton joints", "darkened skin on knee", "dislocated knee", "flaky bump(s) limited to elbows or knees", "front of knee hurts", "front of knee is swollen", "genu valgum", "genu varum", "hurts to kneel", "hurts to walk", "inflamed fluid sac in knee", "inside edge of knee is swollen", "knee cracking when moving", "knee feels like it is slipping", "knee gets stuck when moving", "knee hurts", "knee instability", "knee is able to bend", "knee joint inflammation", "knee joint makes popping sounds", "knee tender to touch", "lump on knee", "mcmurray test positive", "outer side of knee hurts", "pain on inside edge of knee", "patellar tendon reflex absent", "patellar tendon reflex decreased", "patellar tendon reflex increased", "pulsating lump around knee", "single flaky raised skin patch on elbows or knees", "stiff knee", "swollen knee", "tibial tuberosity tenderness", "trouble moving knee", "weak knee muscle"] },
