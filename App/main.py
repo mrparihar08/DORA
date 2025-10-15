@@ -52,7 +52,7 @@ pwd_context = CryptContext(schemes=["pbkdf2_sha256", "scrypt"], deprecated="auto
 origins = os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],       # Allow all origins for dev (or replace with your frontend URL)
+    allow_origins=["https://dora-main-30iw.onrender.com"],       # Allow all origins for dev (or replace with your frontend URL)
     allow_credentials=True,
     allow_methods=["*"],       # Allow all methods (POST, GET, OPTIONS, etc.)
     allow_headers=["*"],       # Allow all headers
