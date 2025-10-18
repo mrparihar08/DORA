@@ -282,6 +282,7 @@ export function Step2() {
     </div>
   );
 }
+
 /* =========================================================
    STEP 3: Review & Predict
 ========================================================= */
@@ -291,6 +292,11 @@ export function Step3() {
   const [prediction, setPrediction] = useState(null);
   const [possibleDiseases, setPossibleDiseases] = useState([]);
   const [loading, setLoading] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL || "https://vitya-ai-qlbn.onrender.com";
+
+  // Simple slugify helper
+  const slugify = (text) =>
+    text.toString().toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
 
   useEffect(() => {
     try {
@@ -311,7 +317,7 @@ export function Step3() {
     try {
       const payload = { symptoms: Object.keys(symptomDetails) };
 
-      const response = await fetch("https://dora-ai-r2z8.onrender.com", {
+      const response = await fetch(`${API_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -326,7 +332,7 @@ export function Step3() {
       setPrediction(data.predicted_disease);
       setPossibleDiseases(data.possible_diseases || []);
 
-      // save report
+      // Save report in localStorage
       const existingReports = JSON.parse(localStorage.getItem("reports")) || [];
       const newReport = {
         date: new Date().toLocaleString(),
@@ -361,7 +367,10 @@ export function Step3() {
         <p>No symptoms selected.</p>
       )}
 
-      <button onClick={handleSubmit} disabled={loading}>
+      <button
+        onClick={handleSubmit}
+        disabled={loading || !Object.keys(symptomDetails).length}
+      >
         {loading ? "Loading..." : "Finish ✅"}
       </button>
 
@@ -377,10 +386,10 @@ export function Step3() {
                 {possibleDiseases.map((d, i) => (
                   <li key={`${slugify(d.Disease)}-${i}`}>
                     <strong>{d.Disease}</strong> —{" "}
-                    {d.Probability !== undefined
-                      ? `${(d.Probability * 100).toFixed(1)}%`
+                    {d.Similarity !== undefined
+                      ? `${(d.Similarity * 100).toFixed(1)}% similarity`
                       : "N/A"}{" "}
-                    ({d.Matches !== undefined ? `${d.Matches} matches` : "N/A"})
+                    (Type: {d.Type || "N/A"}, Severity: {d.Severity_Level || "N/A"})
                   </li>
                 ))}
               </ul>
