@@ -165,10 +165,8 @@ export function SymptomChecker() {
     </div>
   );
 }
-
 /* =========================================================
    STEP 2: Symptom Details
-   (exported as named: Step2)
 ========================================================= */
 export function Step2() {
   const navigate = useNavigate();
@@ -183,6 +181,8 @@ export function Step2() {
     } catch {
       storedSymptoms = [];
     }
+    // deduplicate just in case
+    storedSymptoms = Array.from(new Set(storedSymptoms));
     setSelectedSymptoms(storedSymptoms);
 
     let storedDetails = {};
@@ -205,18 +205,13 @@ export function Step2() {
         ...prev,
         [symptom]: { ...(prev[symptom] || { severity: "", duration: "" }), [field]: value },
       };
-      // persist immediately
-      try {
-        localStorage.setItem("symptomDetails", JSON.stringify(updated));
-      } catch {}
+      localStorage.setItem("symptomDetails", JSON.stringify(updated));
       return updated;
     });
   };
 
   const handleNext = () => {
-    try {
-      localStorage.setItem("symptomDetails", JSON.stringify(symptomDetails));
-    } catch {}
+    localStorage.setItem("symptomDetails", JSON.stringify(symptomDetails));
     navigate("/step3");
   };
 
@@ -224,26 +219,32 @@ export function Step2() {
     <div className="app-container">
       <div className="sidebar">
         <h2 className="sidebar-title">HEALTH SYMPTOM CHECKER</h2>
-        <button className="back-btn" onClick={() => navigate("/symptom-checker")}>Go Back</button>
+        <button className="back-btn" onClick={() => navigate("/symptom-checker")}>
+          Go Back
+        </button>
       </div>
 
       <div className="main-content">
         <h1 className="page-title">Step 2: Symptom Details</h1>
-        <p className="page-subtitle">Provide additional details about your selected symptoms.</p>
+        <p className="page-subtitle">
+          Provide additional details about your selected symptoms.
+        </p>
 
         <div className="step2-container">
           {selectedSymptoms.length === 0 ? (
             <div>
               <p>No symptoms selected. Please go back to Step 1.</p>
-              <button className="back-btn" onClick={() => navigate("/symptom-checker")}>Go Back</button>
+              <button className="back-btn" onClick={() => navigate("/symptom-checker")}>
+                Go Back
+              </button>
             </div>
           ) : (
-            selectedSymptoms.map((symptom) => {
+            selectedSymptoms.map((symptom, index) => {
               const details = symptomDetails[symptom] || { severity: "", duration: "" };
               const idBase = slugify(symptom);
 
               return (
-                <div key={symptom} className="symptom-card">
+                <div key={`${idBase}-${index}`} className="symptom-card">
                   <h3>{symptom}</h3>
 
                   <div className="form-group">
@@ -259,24 +260,16 @@ export function Step2() {
                       <option value="Severe">Severe</option>
                     </select>
                   </div>
-
-                  <div className="form-group">
-                    <label htmlFor={`duration-${idBase}`}>Duration (days):</label>
-                    <input
-                      id={`duration-${idBase}`}
-                      type="number"
-                      min="0"
-                      value={details.duration}
-                      onChange={(e) => handleChange(symptom, "duration", e.target.value)}
-                      placeholder="e.g. 3"
-                    />
-                  </div>
                 </div>
               );
             })
           )}
 
-          <button className="next-btn" onClick={handleNext} disabled={selectedSymptoms.length === 0}>
+          <button
+            className="next-btn"
+            onClick={handleNext}
+            disabled={selectedSymptoms.length === 0}
+          >
             Continue →
           </button>
         </div>
@@ -289,58 +282,64 @@ export function Step2() {
     </div>
   );
 }
-
 /* =========================================================
    STEP 3: Review & Predict
-   (exported as named: Step3)
 ========================================================= */
 export function Step3() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
   const [symptomDetails, setSymptomDetails] = useState({});
   const [prediction, setPrediction] = useState(null);
+  const [possibleDiseases, setPossibleDiseases] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
-      const storedUser = JSON.parse(localStorage.getItem("userData")) || null;
       const storedDetails = JSON.parse(localStorage.getItem("symptomDetails")) || {};
-      if (storedUser) setUserData(storedUser);
       setSymptomDetails(storedDetails);
     } catch {
-      setUserData(null);
       setSymptomDetails({});
     }
   }, []);
 
   const handleSubmit = async () => {
+    if (!Object.keys(symptomDetails).length) {
+      alert("Please select at least one symptom.");
+      return;
+    }
+
     setLoading(true);
     try {
-      const symptomsArray = Object.keys(symptomDetails);
-      const payload = { symptoms: symptomsArray, details: symptomDetails };
+      const payload = { symptoms: Object.keys(symptomDetails) };
 
-      const response = await fetch("http://127.0.0.1:8000/predict", {
+      const response = await fetch("https://dora-ai-r2z8.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error("API request failed");
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API request failed: ${errorText}`);
+      }
+
       const data = await response.json();
       setPrediction(data.predicted_disease);
+      setPossibleDiseases(data.possible_diseases || []);
 
-      // Save to reports: summary + details
+      // save report
       const existingReports = JSON.parse(localStorage.getItem("reports")) || [];
       const newReport = {
         date: new Date().toLocaleString(),
-        symptoms: symptomsArray,
-        symptomDetails: symptomDetails,
+        symptoms: Object.keys(symptomDetails),
+        symptomDetails,
         prediction: data.predicted_disease,
+        possible_diseases: data.possible_diseases || [],
       };
       localStorage.setItem("reports", JSON.stringify([newReport, ...existingReports]));
     } catch (error) {
       console.error("Error:", error);
       setPrediction("Something went wrong. Please try again.");
+      setPossibleDiseases([]);
     } finally {
       setLoading(false);
     }
@@ -349,21 +348,11 @@ export function Step3() {
   return (
     <div className="step3-container">
       <h2>Review Your Information</h2>
-
-      {userData ? (
-        <div>
-          <p><b>Age:</b> {userData.age}</p>
-          <p><b>Gender:</b> {userData.gender}</p>
-        </div>
-      ) : (
-        <p>No user data found.</p>
-      )}
-
       <h3>Selected Symptoms:</h3>
       {Object.keys(symptomDetails).length > 0 ? (
         <ul>
-          {Object.entries(symptomDetails).map(([symptom, detail]) => (
-            <li key={symptom}>
+          {Object.entries(symptomDetails).map(([symptom, detail], index) => (
+            <li key={`${slugify(symptom)}-${index}`}>
               {symptom} — {detail.severity || "N/A"}, {detail.duration || "N/A"} days
             </li>
           ))}
@@ -380,6 +369,24 @@ export function Step3() {
         <div className="result" style={{ marginTop: 18 }}>
           <h3>Predicted Disease:</h3>
           <p>{prediction}</p>
+
+          {possibleDiseases.length > 0 && (
+            <>
+              <h4>Top Suggestions:</h4>
+              <ul>
+                {possibleDiseases.map((d, i) => (
+                  <li key={`${slugify(d.Disease)}-${i}`}>
+                    <strong>{d.Disease}</strong> —{" "}
+                    {d.Probability !== undefined
+                      ? `${(d.Probability * 100).toFixed(1)}%`
+                      : "N/A"}{" "}
+                    ({d.Matches !== undefined ? `${d.Matches} matches` : "N/A"})
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
           <button className="view-reports-btn" onClick={() => navigate("/reports")}>
             View Past Reports 📄
           </button>
