@@ -22,7 +22,7 @@ export default function HealthTips() {
   return (
     <div className="app-container">
       <div className="sidebar">
-        <h2 className="sidebar-title">HEALTH SYMPTOM CHECKER</h2>
+        <h2 className="sidebar-title">VEDH</h2>
         <div className="sidebar-menu">
           {navItems.map((item, idx) => (
             <div key={`nav-${idx}`} onClick={() => navigate(item.path)} className="menu-item">
