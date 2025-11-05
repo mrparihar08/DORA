@@ -14,7 +14,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="sidebar">
-        <h2 className="sidebar-title">HEALTH SYMPTOM CHECKER</h2>
+        <h2 className="sidebar-title">VEDH</h2>
         <div className="sidebar-menu">
           {navItems.map((item, idx) => (
             <div
@@ -30,7 +30,7 @@ export default function Dashboard() {
 
       <main className="main-content">
         <header className="welcome-header">
-          <h1>Welcome to Health Symptom Checker</h1>
+          <h1>Welcome to VEDH</h1>
           <p>
             Easily track and check your health symptoms with our intelligent
             system. <br />
